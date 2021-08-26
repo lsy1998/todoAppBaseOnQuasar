@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .content {
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .content:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: -1;
+            
+        }
+
+        .content::after {
+            background-image: url(./src/assets/image/bg.jpg);
+            background-position: center top;
+            background-size: cover;
+            background-attachment: fixed;
+            -webkit-filter: blur(20px);
+            -moz-filter: blur(20px);
+            -ms-filter: blur(20px);
+            -o-filter: blur(20px);
+            filter: blur(20px);
+        }
+    </style>
+</head>
+
+<body style="background:url(./src/assets/image/bg.jpg);">
+    <div style="width: 100px; height: 100px;" class="content">
+        dhjdakdhahj
+    </div>
+</body>
+
+</html>
