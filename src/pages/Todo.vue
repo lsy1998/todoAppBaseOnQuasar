@@ -4,9 +4,10 @@
       <div class="row">
         <div color="white" class="col content" v-for="day in days" v-bind:key="day" style="
             height: 35px;
-            border: 1px solid rgb(128, 128, 128);
+            margin: 1px;
             text-align: center;
             padding-top: 7px;
+            font-weight:bold;
           ">
           {{ day }}
         </div>
@@ -14,19 +15,21 @@
 
       <div class="row" v-for="i in 24 / timeSegment" v-bind:key="i" style="">
         <tempate v-for="j of 8" v-bind:key="j" class="col">
-          <div class="row" v-if="j == 1" style="border: 1px solid rgb(128, 128, 128)">
+          <div class="row" v-if="j == 1" style="">
             <div class="col">
               <div class="col content" style="
                 height: 35px;
-                border: 1px solid rgb(128, 128, 128);
+                margin: 1px;
                 text-align: center;
                 padding-top: 7px;
+                letter-spacing: 1px;
+                font-weight: bold;
               ">
                 {{
                 ((i - 1) * timeSegment) % 1 == 0
                   ? (i - 1) * timeSegment
                   : (i - 1) * timeSegment - 0.5
-              }}:{{ ((i - 1) * timeSegment) % 1 == 0 ? "00" : "30" }}-{{
+              }}:{{ ((i - 1) * timeSegment) % 1 == 0 ? "00" : "30" }}—{{
                 (i * timeSegment) % 1 == 0
                   ? i * timeSegment
                   : i * timeSegment - 0.5
@@ -34,39 +37,34 @@
               </div>
             </div>
           </div>
-          <div v-if="j != 1" class="row" style="border: 1px solid rgb(128, 128, 128);">
-            <div class="col outContent">
+          <!-- style="border: 1px solid white;" -->
+          <div v-if="j != 1" class="row">
+            <div class="col outContent" style="margin: 1px; border-radius:5px;">
               <div class="col content item" :class="`item${28*(i-1)+(j-2)*4+1}`" :id="`${i}_${j}1`" @click="isUrgency(`${i}_${j}1`, $event)" data-value="" data-color="" style="
                 height: 35px;
-                display: inline-block;
-                border: 1px solid grey;
+
               ">
 
               </div>
             </div>
-            <div class="col outContent">
-              <div class="col content item" :class="`item${28*(i-1)+(j-2)*4+2}`" :id="`${i}_${j}2`" @click="isFinished(`${i}_${j}2`, $event)" data-value="" data-color="" style="
+            <div class="col outContent" style="margin: 1px; border-radius:5px;">
+              <div class="col content item" :class="[`item${28*(i-1)+(j-2)*4+2}`,{'content':true}]" :id="`${i}_${j}2`" @click="isFinished(`${i}_${j}2`, $event)" data-value="" data-color="" style="
                 height: 35px;
-                display: inline-block;
-                border: 1px solid grey;
               ">
 
               </div>
             </div>
-            <div class="col outContent">
+            <div class="col outContent" style="margin: 1px; border-radius:5px;">
               <div class="col content item" :class="`item${28*(i-1)+(j-2)*4+3}`" :id="`${i}_${j}3`" @click="selectItem(`${i}_${j}3`, $event)" data-value="" data-color="" style="
                 height: 35px;
-                display: inline-block;
-                border: 1px solid grey;
+
               ">
 
               </div>
             </div>
-            <div class="col outContent">
+            <div class="col outContent" style="margin: 1px; border-radius:5px;">
               <div class="content item" :class="`item${28*(i-1)+(j-2)*4+4}`" :id="`${i}_${j}4`" @click="selectItem(`${i}_${j}4`, $event)" data-value="" data-color="" style="
                 height: 35px;
-                display: inline-block;
-                border: 1px solid grey;
               ">
 
               </div>
@@ -87,7 +85,7 @@
                   </div>
 
                   <div class="col-auto">
-                    <q-btn color="grey" round flat dense :icon="
+                    <q-btn color="white" round flat dense :icon="
                         expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
                       " @click="expanded = !expanded" />
                   </div>
@@ -258,11 +256,11 @@
                   <q-select style="box-shadow: 0px 1px 2px 1px rgb(162, 155, 131);" class="col-md-8" dense square outlined v-model="timeSegment" :options="timeSegmentOptions" />
                 </div>
                 <div class="row" style="width: 100%; margin-top: 10px">
-                  <q-input @change="changeCurrentDate" square dense filled v-model="currentDate" mask="date" :rules="['date']" style="width:100%">
+                  <q-input square dense filled v-model="currentDate" mask="date" :rules="['date']" style="width:100%">
                     <template v-slot:append>
                       <q-icon name="event" class="cursor-pointer">
                         <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                          <q-date @change="changeCurrentDate" v-model="currentDate">
+                          <q-date @change="changeCurrentDate" v-model="currentDateRange" range>
                             <div class="row items-center justify-end">
                               <q-btn v-close-popup label="Close" color="primary" flat />
                             </div>
@@ -280,11 +278,38 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col">
+          <div>
+            <q-card square flat bordered>
+              <q-card-section class="content" style="border-top:1px solid white;">
+                <div class="text-h6">外观</div>
+              </q-card-section>
+
+              <q-separator />
+
+              <q-card-actions align="right" class="content">
+                <div class="row" style="width: 100%">
+
+                  <q-input style="width: 100%" outlined v-model="text" label="背景图片" readonly dense>
+                    <template v-slot:append>
+                      <q-btn round dense flat icon="add" @click="clickChangeBgBtn" />
+                    </template>
+                  </q-input>
+                  <input type="file" style="display:none" id='bgInput' @change="changeBg(this)" />
+                </div>
+
+              </q-card-actions>
+            </q-card>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import { useQuasar } from "quasar";
+import { ref } from 'vue'
 
 export default {
   setup() {
@@ -339,7 +364,8 @@ export default {
       today: '',
       oldDate: '',
       otherDay: '',
-      currentDate: '',
+      currentDate: ref({ from: '2020/07/08', to: '2020/07/17' }),
+      currentDateRange: '',
       currentObjectId: '',
       itemList: []
     };
@@ -363,6 +389,62 @@ export default {
     }
   },
   methods: {
+    clickChangeBgBtn() {
+      document.getElementById('bgInput').click();
+    },
+
+    changeBg(e) {
+      var files = document.getElementById('bgInput').files;
+
+      // var bmobFile = Bmob.File(files[0].name, files[0]);
+      // console.log(bmobFile.save().then());
+      // console.log(files[0].name);
+      // console.log(files[0]);
+      // bmobFile.save().then(res => {
+      //   console.log(res.length);
+      //   console.log(res);
+      // })
+
+      // console.log(files);
+      this.fileReader(files[0], function (res) {
+        var bgImg = files[0];
+        // var contents = document.getElementsByClassName('content');
+        // console.log(res.currentTarget.result);
+        // for (var i =0 ;i<contents.length;i++){
+        //   console.log(contents[i]);
+        //   contents[i].style.backgroundImage = `url(${res.currentTarget.result})`;
+        // }
+
+        // var bgImgData =
+        // {	//基本数据
+        //   name: bgImg.name,
+        //   size: bgImg.size,
+        //   type: bgImg.type,
+        //   base64: res.currentTarget.result
+        // };
+        // console.log(bgImgData);
+        // const query = Bmob.Query('item');
+
+        // query.get(sessionStorage.getItem('currentObjectId')).then(res => {
+        //   console.log(res)
+        //   res.set('bgImg',img)
+        //   res.save()
+        // }).catch(err => {
+        //   console.log(err)
+        // })
+      });
+    },
+
+    fileReader(file, cb) {
+      if (file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (res) {
+          cb && cb(res);
+        }
+      }
+    },
+
     changeTimeSegment() {
 
       if (this.currentDate == this.oldDate) {
@@ -370,7 +452,7 @@ export default {
         for (var i = 0; i < items.length; i++) {
           items[i].setAttribute('data-color', '');
           items[i].setAttribute('data-value', '');
-          items[i].style.background = 'white';
+          items[i].style.background = '';
         }
       }
 
@@ -384,15 +466,20 @@ export default {
     initItem(date) {
 
       // .style.height = document.body.clientHeight;
-      if (date == '') {
-        this.currentDate = this.$moment().format('YYYY/MM/DD');
-        this.oldDate = this.$moment().format('YYYY/MM/DD');
-      }
+      // if (date == '') {
+
+      var weekOfday = this.$moment().format('E');
+      var last_monday = this.$moment().subtract(weekOfday, 'days').add(1, 'days').format('YYYY/MM/DD');//周一日期
+      var last_sunday = this.$moment().add(7 - weekOfday, 'days').format('YYYY/MM/DD');//周日日期
+      this.currentDateRange = ref({ from: last_monday, to: last_sunday });
+      this.currentDate = this.$moment().format('YYYY/MM/DD');
+      this.oldDate = this.$moment().format('YYYY/MM/DD');
+      // }
       var flag = false;
       const query = Bmob.Query("item");
       query.order("-updatedAt");
       query.equalTo("username", "==", this.username);
-      query.equalTo("save_date", "==", this.currentDate);
+      query.equalTo("save_date", "==", { from: last_monday, to: last_sunday });
       query.find().then(res => {
         console.log(res)
         var data = res[0];
@@ -402,7 +489,7 @@ export default {
           for (var i = 0; i < items.length; i++) {
             items[i].setAttribute('data-color', '');
             items[i].setAttribute('data-value', '');
-            items[i].style.background = 'white';
+            items[i].style.background = '';
           };
           this.itemsArr = [
             {
@@ -430,10 +517,10 @@ export default {
           this.itemsArr = data.activities;
           this.itemList = itemList;
           this.currentObjectId = data.objectId;
+          sessionStorage.currentObjectId = data.objectId;
           this.$nextTick(() => {
             document.getElementById('colMd10')
             for (var i = 0; i < itemList.length; i++) {
-              console.log(i);
               document.getElementsByClassName(`item${i + 1}`)[0].setAttribute('data-value', itemList[i].value);
               document.getElementsByClassName(`item${i + 1}`)[0].setAttribute('data-color', itemList[i].color);
               document.getElementsByClassName(`item${i + 1}`)[0].style.background = itemList[i].color;
@@ -480,7 +567,7 @@ export default {
       const query = Bmob.Query('item');
       query.set("item_list", arr.toString())
       query.set("activities", this.itemsArr)
-      query.set("save_date", this.currentDate)
+      query.set("save_date", this.currentDateRange)
       query.set("time_segment", this.timeSegment.toString())
       query.set("username", sessionStorage.getItem('username'))
       query.save().then(res => {
@@ -657,26 +744,26 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: -1;
   overflow: hidden;
 }
 
 .content::after {
-  background-image: url(../assets/image/bg.jpg);
+  background-image: url(../assets/image/bg.jpg) !important;
   /* background: linear-gradient(to bottom, #5583EE 0%,#41D8DD 100%); */
-  background-position: center top;
-  background-size: 100% 100%;
-  background-attachment: fixed;
+  background-position: center top !important;
+  background-size: 100% 100% !important;
+  background-attachment: fixed !important;
   -webkit-filter: blur(20px);
   -moz-filter: blur(20px);
   -ms-filter: blur(20px);
   -o-filter: blur(20px);
-  filter: blur(50px);
+  filter: blur(20px);
   transform: scale(2);
+  z-index: -1;
 }
 
-.outContent{
-  height:35px;
+.outContent {
+  height: 35px;
   overflow: hidden;
 }
 </style>
