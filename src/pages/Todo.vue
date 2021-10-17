@@ -1,14 +1,25 @@
 <template style="height:1000px;">
-  <div :style="bg" class="row content" id='mainBox' style="margin-top: 10px;height:1000px;">
-    <div class="col-md-10" id="colMd10" style="height:1000px">
+  <div
+    :style="bg"
+    class="row content"
+    id="mainBox"
+    style="margin-top: 10px; height: 1000px"
+  >
+    <div class="col-md-10" id="colMd10" style="height: 1000px">
       <div class="row">
-        <div color="white" class="col content" v-for="day in days" v-bind:key="day" style="
+        <div
+          color="white"
+          class="col content"
+          v-for="day in days"
+          v-bind:key="day"
+          style="
             height: 35px;
             margin: 1px;
             text-align: center;
             padding-top: 7px;
-            font-weight:bold;
-          ">
+            font-weight: bold;
+          "
+        >
           {{ day }}
         </div>
       </div>
@@ -17,57 +28,77 @@
         <tempate v-for="j of 8" v-bind:key="j" class="col">
           <div class="row" v-if="j == 1" style="">
             <div class="col">
-              <div class="col content" style="
-                height: 35px;
-                margin: 1px;
-                text-align: center;
-                padding-top: 7px;
-                letter-spacing: 1px;
-                font-weight: bold;
-              ">
+              <div
+                class="col content"
+                style="
+                  height: 35px;
+                  margin: 1px;
+                  text-align: center;
+                  padding-top: 7px;
+                  letter-spacing: 1px;
+                  font-weight: bold;
+                "
+              >
                 {{
-                ((i - 1) * timeSegment) % 1 == 0
-                  ? (i - 1) * timeSegment
-                  : (i - 1) * timeSegment - 0.5
-              }}:{{ ((i - 1) * timeSegment) % 1 == 0 ? "00" : "30" }}—{{
-                (i * timeSegment) % 1 == 0
-                  ? i * timeSegment
-                  : i * timeSegment - 0.5
-              }}:{{ (i * timeSegment) % 1 == 0 ? "00" : "30" }}
+                  ((i - 1) * timeSegment) % 1 == 0
+                    ? (i - 1) * timeSegment
+                    : (i - 1) * timeSegment - 0.5
+                }}:{{ ((i - 1) * timeSegment) % 1 == 0 ? "00" : "30" }}—{{
+                  (i * timeSegment) % 1 == 0
+                    ? i * timeSegment
+                    : i * timeSegment - 0.5
+                }}:{{ (i * timeSegment) % 1 == 0 ? "00" : "30" }}
               </div>
             </div>
           </div>
           <!-- style="border: 1px solid white;" -->
           <div v-if="j != 1" class="row">
-            <div class="col outContent" style="margin: 1px; border-radius:5px;">
-              <div class="col content item" :class="`item${28*(i-1)+(j-2)*4+1}`" :id="`${i}_${j}1`" @click="isUrgency(`${i}_${j}1`, $event)" data-value="" data-color="" style="
-                height: 35px;
-
-              ">
-
-              </div>
+            <div class="col outContent" style="margin: 1px; border-radius: 5px">
+              <div
+                class="col content item"
+                :class="`item${28 * (i - 1) + (j - 2) * 4 + 1}`"
+                :id="`${i}_${j}1`"
+                @click="isUrgency(`${i}_${j}1`, $event)"
+                data-value=""
+                data-color=""
+                style="height: 35px"
+              ></div>
             </div>
-            <div class="col outContent" style="margin: 1px; border-radius:5px;">
-              <div class="col content item" :class="[`item${28*(i-1)+(j-2)*4+2}`,{'content':true}]" :id="`${i}_${j}2`" @click="isFinished(`${i}_${j}2`, $event)" data-value="" data-color="" style="
-                height: 35px;
-              ">
-
-              </div>
+            <div class="col outContent" style="margin: 1px; border-radius: 5px">
+              <div
+                class="col content item"
+                :class="[
+                  `item${28 * (i - 1) + (j - 2) * 4 + 2}`,
+                  { content: true },
+                ]"
+                :id="`${i}_${j}2`"
+                @click="isFinished(`${i}_${j}2`, $event)"
+                data-value=""
+                data-color=""
+                style="height: 35px"
+              ></div>
             </div>
-            <div class="col outContent" style="margin: 1px; border-radius:5px;">
-              <div class="col content item" :class="`item${28*(i-1)+(j-2)*4+3}`" :id="`${i}_${j}3`" @click="selectItem(`${i}_${j}3`, $event)" data-value="" data-color="" style="
-                height: 35px;
-
-              ">
-
-              </div>
+            <div class="col outContent" style="margin: 1px; border-radius: 5px">
+              <div
+                class="col content item"
+                :class="`item${28 * (i - 1) + (j - 2) * 4 + 3}`"
+                :id="`${i}_${j}3`"
+                @click="selectItem(`${i}_${j}3`, $event)"
+                data-value=""
+                data-color=""
+                style="height: 35px"
+              ></div>
             </div>
-            <div class="col outContent" style="margin: 1px; border-radius:5px;">
-              <div class="content item" :class="`item${28*(i-1)+(j-2)*4+4}`" :id="`${i}_${j}4`" @click="selectItem(`${i}_${j}4`, $event)" data-value="" data-color="" style="
-                height: 35px;
-              ">
-
-              </div>
+            <div class="col outContent" style="margin: 1px; border-radius: 5px">
+              <div
+                class="content item"
+                :class="`item${28 * (i - 1) + (j - 2) * 4 + 4}`"
+                :id="`${i}_${j}4`"
+                @click="selectItem(`${i}_${j}4`, $event)"
+                data-value=""
+                data-color=""
+                style="height: 35px"
+              ></div>
             </div>
           </div>
         </tempate>
@@ -85,9 +116,16 @@
                   </div>
 
                   <div class="col-auto">
-                    <q-btn color="white" round flat dense :icon="
+                    <q-btn
+                      color="white"
+                      round
+                      flat
+                      dense
+                      :icon="
                         expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
-                      " @click="expanded = !expanded" />
+                      "
+                      @click="expanded = !expanded"
+                    />
                   </div>
                 </div>
               </q-card-section>
@@ -95,12 +133,25 @@
                 <div v-show="expanded">
                   <q-separator />
                   <q-card-section class="text-subitle2">
-                    <q-input square outlined v-model="itemLabel" label="Please input item" />
+                    <q-input
+                      square
+                      outlined
+                      v-model="itemLabel"
+                      label="Please input item"
+                    />
 
-                    <q-input filled v-model="itemColor" class="my-input" style="margin-top: 5px">
+                    <q-input
+                      filled
+                      v-model="itemColor"
+                      class="my-input"
+                      style="margin-top: 5px"
+                    >
                       <template v-slot:append>
                         <q-icon name="colorize" class="cursor-pointer">
-                          <q-popup-proxy transition-show="scale" transition-hide="scale">
+                          <q-popup-proxy
+                            transition-show="scale"
+                            transition-hide="scale"
+                          >
                             <q-color v-model="itemColor" />
                           </q-popup-proxy>
                         </q-icon>
@@ -115,15 +166,25 @@
               <q-separator />
 
               <q-card-actions vertical align="center" style="" class="content">
-                <div v-for="item in itemsArr" v-bind:key="item" class="lsy" style="width: 100%">
-                  <div class="content" :style="`background:${item.color1};`" style="
+                <div
+                  v-for="item in itemsArr"
+                  v-bind:key="item"
+                  class="lsy"
+                  style="width: 100%"
+                >
+                  <div
+                    class="content"
+                    :style="`background:${item.color1};`"
+                    style="
                       width: 100%;
                       color: black;
                       text-align: center;
                       padding: 8px;
                       box-shadow: 0px 1px 2px 1px rgb(162, 155, 131);
                       margin-top: 10px;
-                    " flat>
+                    "
+                    flat
+                  >
                     {{ item.label }}
                   </div>
                   <q-separator />
@@ -144,17 +205,25 @@
               <q-separator />
 
               <q-card-actions align="right" class="content">
-                <div class="row" style="
+                <div
+                  class="row"
+                  style="
                     width: 100%;
                     box-shadow: 0px 1px 2px 1px rgb(162, 155, 131);
-                  ">
-                  <div v-for="explain in explains" v-bind:key="explain" class="col" style="
+                  "
+                >
+                  <div
+                    v-for="explain in explains"
+                    v-bind:key="explain"
+                    class="col"
+                    style="
                       height: 40px;
                       font-size: 10px;
                       text-align: center;
                       padding-top: 12px;
                       font-weight: bold;
-                    ">
+                    "
+                  >
                     {{ explain }}
                   </div>
                 </div>
@@ -162,72 +231,96 @@
                 <div class="row" style="width: 100%; margin-top: 10px">
                   <div class="col-md-4">
                     <div style="width: 100%">
-                      <div class="" style="
+                      <div
+                        class=""
+                        style="
                           height: 40px;
                           font-size: 10px;
                           text-align: center;
                           height: 35px;
                           padding-top: 9px;
                           font-weight: bold;
-                        ">
+                        "
+                      >
                         urgency?
                       </div>
-                      <div class="" style="
+                      <div
+                        class=""
+                        style="
                           height: 40px;
                           font-size: 10px;
                           text-align: center;
                           height: 35px;
                           padding-top: 9px;
                           font-weight: bold;
-                          margin-top:10px;
-                        ">
+                          margin-top: 10px;
+                        "
+                      >
                         finished?
                       </div>
                     </div>
                   </div>
                   <div class="col-md-8">
-                    <div class="row" style="
+                    <div
+                      class="row"
+                      style="
                         box-shadow: 0px 1px 2px 1px rgb(162, 155, 131);
                         margin-bottom: 10px;
-                      ">
-                      <div class="col content" style="
+                      "
+                    >
+                      <div
+                        class="col content"
+                        style="
                           font-size: 10px;
                           text-align: center;
                           height: 35px;
                           padding-top: 9px;
                           font-weight: bold;
                           background: #ffff00;
-                        ">
+                        "
+                      >
                         Yes
                       </div>
-                      <div class="col content" style="
+                      <div
+                        class="col content"
+                        style="
                           font-size: 10px;
                           text-align: center;
                           height: 35px;
                           padding-top: 9px;
                           font-weight: bold;
-                        ">
+                        "
+                      >
                         No
                       </div>
                     </div>
-                    <div class="row " style="box-shadow: 0px 1px 2px 1px rgb(162, 155, 131);">
-                      <div class="col content" style="
+                    <div
+                      class="row"
+                      style="box-shadow: 0px 1px 2px 1px rgb(162, 155, 131)"
+                    >
+                      <div
+                        class="col content"
+                        style="
                           font-size: 10px;
                           text-align: center;
                           height: 35px;
                           padding-top: 9px;
                           font-weight: bold;
                           background: rgb(0, 245, 123);
-                        ">
+                        "
+                      >
                         Yes
                       </div>
-                      <div class="col content" style="
+                      <div
+                        class="col content"
+                        style="
                           font-size: 10px;
                           text-align: center;
                           height: 35px;
                           padding-top: 9px;
                           font-weight: bold;
-                        ">
+                        "
+                      >
                         No
                       </div>
                     </div>
@@ -242,7 +335,10 @@
         <div class="col">
           <div>
             <q-card square flat bordered>
-              <q-card-section class="content" style="border-top:1px solid white;">
+              <q-card-section
+                class="content"
+                style="border-top: 1px solid white"
+              >
                 <div class="text-h6">操作</div>
               </q-card-section>
 
@@ -250,27 +346,37 @@
 
               <q-card-actions align="right" class="content">
                 <div class="row" style="width: 100%">
-                  <div class="col-md-4" style="height: 40px; text-align: left; padding: 10px 0 0 10px;">
+                  <div
+                    class="col-md-4"
+                    style="
+                      height: 40px;
+                      text-align: left;
+                      padding: 10px 0 0 10px;
+                    "
+                  >
                     时间段
                   </div>
-                  <q-select style="box-shadow: 0px 1px 2px 1px rgb(162, 155, 131);" class="col-md-8" dense square outlined v-model="timeSegment" :options="timeSegmentOptions" />
+                  <q-select
+                    style="box-shadow: 0px 1px 2px 1px rgb(162, 155, 131)"
+                    class="col-md-8"
+                    dense
+                    square
+                    outlined
+                    v-model="timeSegment"
+                    :options="timeSegmentOptions"
+                  />
                 </div>
                 <div class="row" style="width: 100%; margin-top: 10px">
-                  <q-input square dense filled v-model="currentDate" mask="date" :rules="['date']" style="width:100%">
-                    <template v-slot:append>
-                      <q-icon name="event" class="cursor-pointer">
-                        <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                          <q-date @change="changeCurrentDate" v-model="currentDateRange" range>
-                            <div class="row items-center justify-end">
-                              <q-btn v-close-popup label="Close" color="primary" flat />
-                            </div>
-                          </q-date>
-                        </q-popup-proxy>
-                      </q-icon>
-                    </template>
-                  </q-input>
+                  <q-btn icon="fas fa-chevron-left" class="col-md-3"/>
+                  <q-btn :label="currentWeek"  class="col-md-6"/>
+                  <q-btn icon="fas fa-chevron-right" class="col-md-3"/>
                 </div>
-                <div class="row" style="width: 100%; margin-top: -10px">
+                <div class="row" style="width: 100%; margin-top: 10px">
+                  
+                  <q-btn :label="currentWeekDate" class="col-md-12"/>
+                  
+                </div>
+                <div class="row" style="width: 100%; margin-top: 10px">
                   <q-btn style="width: 100%" @click="saveDate"> save </q-btn>
                 </div>
               </q-card-actions>
@@ -282,7 +388,10 @@
         <div class="col">
           <div>
             <q-card square flat bordered>
-              <q-card-section class="content" style="border-top:1px solid white;">
+              <q-card-section
+                class="content"
+                style="border-top: 1px solid white"
+              >
                 <div class="text-h6">外观</div>
               </q-card-section>
 
@@ -290,15 +399,30 @@
 
               <q-card-actions align="right" class="content">
                 <div class="row" style="width: 100%">
-
-                  <q-input style="width: 100%" outlined v-model="text" label="背景图片" readonly dense>
+                  <q-input
+                    style="width: 100%"
+                    outlined
+                    label="背景图片"
+                    readonly
+                    dense
+                  >
                     <template v-slot:append>
-                      <q-btn round dense flat icon="add" @click="clickChangeBgBtn" />
+                      <q-btn
+                        round
+                        dense
+                        flat
+                        icon="add"
+                        @click="clickChangeBgBtn"
+                      />
                     </template>
                   </q-input>
-                  <input type="file" style="display:none" id='bgInput' @change="changeBg(this)" />
+                  <input
+                    type="file"
+                    style="display: none"
+                    id="bgInput"
+                    @change="changeBg(this)"
+                  />
                 </div>
-
               </q-card-actions>
             </q-card>
           </div>
@@ -309,7 +433,7 @@
 </template>
 <script>
 import { useQuasar } from "quasar";
-import { ref } from 'vue'
+import { ref } from "vue";
 
 export default {
   setup() {
@@ -319,6 +443,8 @@ export default {
   },
   data() {
     return {
+      currentWeek: "",
+      currentWeekDate: "",
       days: [
         "时间/日期",
         "星期一",
@@ -361,40 +487,67 @@ export default {
         backgroundSize: "cover",
         backgroundAttachment: "fixed",
       },
-      today: '',
-      oldDate: '',
-      otherDay: '',
-      currentDate: ref({ from: '2020/07/08', to: '2020/07/17' }),
-      currentDateRange: '',
-      currentObjectId: '',
-      itemList: []
+      today: "",
+      oldDate: "",
+      otherDay: "",
+      currentDate: ref({ from: "2020/07/08", to: "2020/07/17" }),
+      currentDateRange: "",
+      currentObjectId: "",
+      itemList: [],
     };
   },
   created() {
-
+    this.getWeek();
     if (sessionStorage.itemsArr == "" || sessionStorage.itemsArr == null) {
     } else {
       this.itemsArr = JSON.parse(sessionStorage.getItem("itemsArr"));
       console.log(this.itemsArr);
     }
-    this.initItem('');
+    this.initItem("");
     // document.getElementById('mainBox').style.height = '1000px';
   },
   watch: {
-    currentDate(val, oldVal) {//普通的watch监听
+    currentDate(val, oldVal) {
+      //普通的watch监听
       this.changeCurrentDate(val, oldVal);
     },
     timeSegment(val, oldVal) {
       this.changeTimeSegment(val, oldVal);
-    }
+    },
   },
   methods: {
+    getWeek() {
+      let date = new Date();
+      let y = date.getFullYear();
+      let m = date.getMonth();
+      let d = date.getDate();
+      // Days in a month
+      let days = new Date(y, m + 1, 0).getDate();
+      let weekday = date.getDay();
+      if (weekday == 0) {
+        weekday = 6;
+      } else {
+        weekday -= 1;
+      }
+      let lastday = (d + (6 - weekday)) % days;
+      let firstDay = d - weekday;
+      this.currentWeekDate = `${y}-${m+1}-${firstDay}\xa0\xa0\xa0<->\xa0\xa0\xa0${y}-${m+1}-${lastday}`
+      console.warn("Monday of current week:%d年%d月%d日", y, m+1, firstDay);
+      console.warn("Sunday of current week:%d年%d月%d日", y, m+1, lastday);
+      let day1 = new Date(y, m, d);
+      let day2 = new Date(y, 0, 1);
+      let result = Math.round((day1.valueOf() - day2.valueOf()) / 86400000);
+      result =Math.floor(result / 7);
+      this.currentWeek = `第${result}周`
+      // console.error(result);
+    },
+
     clickChangeBgBtn() {
-      document.getElementById('bgInput').click();
+      document.getElementById("bgInput").click();
     },
 
     changeBg(e) {
-      var files = document.getElementById('bgInput').files;
+      var files = document.getElementById("bgInput").files;
 
       // var bmobFile = Bmob.File(files[0].name, files[0]);
       // console.log(bmobFile.save().then());
@@ -441,22 +594,19 @@ export default {
         reader.readAsDataURL(file);
         reader.onload = function (res) {
           cb && cb(res);
-        }
+        };
       }
     },
 
     changeTimeSegment() {
-
       if (this.currentDate == this.oldDate) {
-        var items = document.getElementsByClassName('item');
+        var items = document.getElementsByClassName("item");
         for (var i = 0; i < items.length; i++) {
-          items[i].setAttribute('data-color', '');
-          items[i].setAttribute('data-value', '');
-          items[i].style.background = '';
+          items[i].setAttribute("data-color", "");
+          items[i].setAttribute("data-value", "");
+          items[i].style.background = "";
         }
       }
-
-
     },
     changeCurrentDate(date, oldDate) {
       this.initItem(date);
@@ -464,33 +614,37 @@ export default {
       this.currentDate = date;
     },
     initItem(date) {
-
       // .style.height = document.body.clientHeight;
       // if (date == '') {
 
-      var weekOfday = this.$moment().format('E');
-      var last_monday = this.$moment().subtract(weekOfday, 'days').add(1, 'days').format('YYYY/MM/DD');//周一日期
-      var last_sunday = this.$moment().add(7 - weekOfday, 'days').format('YYYY/MM/DD');//周日日期
+      var weekOfday = this.$moment().format("E");
+      var last_monday = this.$moment()
+        .subtract(weekOfday, "days")
+        .add(1, "days")
+        .format("YYYY/MM/DD"); //周一日期
+      var last_sunday = this.$moment()
+        .add(7 - weekOfday, "days")
+        .format("YYYY/MM/DD"); //周日日期
       this.currentDateRange = ref({ from: last_monday, to: last_sunday });
-      this.currentDate = this.$moment().format('YYYY/MM/DD');
-      this.oldDate = this.$moment().format('YYYY/MM/DD');
+      this.currentDate = this.$moment().format("YYYY/MM/DD");
+      this.oldDate = this.$moment().format("YYYY/MM/DD");
       // }
       var flag = false;
       const query = Bmob.Query("item");
       query.order("-updatedAt");
       query.equalTo("username", "==", this.username);
       query.equalTo("save_date", "==", { from: last_monday, to: last_sunday });
-      query.find().then(res => {
-        console.log(res)
+      query.find().then((res) => {
+        console.log(res);
         var data = res[0];
         if (res.length == 0) {
-          this.timeSegment = '1';
-          var items = document.getElementsByClassName('item');
+          this.timeSegment = "1";
+          var items = document.getElementsByClassName("item");
           for (var i = 0; i < items.length; i++) {
-            items[i].setAttribute('data-color', '');
-            items[i].setAttribute('data-value', '');
-            items[i].style.background = '';
-          };
+            items[i].setAttribute("data-color", "");
+            items[i].setAttribute("data-value", "");
+            items[i].style.background = "";
+          }
           this.itemsArr = [
             {
               label: "吃饭",
@@ -499,18 +653,17 @@ export default {
             },
             { label: "睡觉", value: "#9999ff-睡觉", color1: "#9999ff" },
             { label: "玩游戏", value: "#ff9933-玩游戏", color1: "#ff9933" },
-          ]
-
+          ];
         } else {
-          var itemList = data.item_list.replace("\\", " ").split('},');
+          var itemList = data.item_list.replace("\\", " ").split("},");
 
           for (var j = 0; j < itemList.length; j++) {
             if (j != itemList.length - 1) {
-              itemList[j] = itemList[j] + '}';
+              itemList[j] = itemList[j] + "}";
             }
             itemList[j] = JSON.parse(itemList[j]);
           }
-          console.log('aaaa');
+          console.log("aaaa");
           console.log(itemList);
           console.log(itemList.length);
           this.timeSegment = data.time_segment;
@@ -519,15 +672,20 @@ export default {
           this.currentObjectId = data.objectId;
           sessionStorage.currentObjectId = data.objectId;
           this.$nextTick(() => {
-            document.getElementById('colMd10')
+            document.getElementById("colMd10");
             for (var i = 0; i < itemList.length; i++) {
-              document.getElementsByClassName(`item${i + 1}`)[0].setAttribute('data-value', itemList[i].value);
-              document.getElementsByClassName(`item${i + 1}`)[0].setAttribute('data-color', itemList[i].color);
-              document.getElementsByClassName(`item${i + 1}`)[0].style.background = itemList[i].color;
+              document
+                .getElementsByClassName(`item${i + 1}`)[0]
+                .setAttribute("data-value", itemList[i].value);
+              document
+                .getElementsByClassName(`item${i + 1}`)[0]
+                .setAttribute("data-color", itemList[i].color);
+              document.getElementsByClassName(
+                `item${i + 1}`
+              )[0].style.background = itemList[i].color;
               flag = true;
             }
-          })
-
+          });
 
           console.log(itemList);
         }
@@ -541,20 +699,22 @@ export default {
         //   saveDate: data.save_date,
         //   objectId: data.objectId
         // }
-
-
       });
     },
     saveDate() {
       var arr = [];
-      for (var i = 1; i <= 28 * 24 / this.timeSegment; i++) {
-        var color = document.getElementsByClassName(`item${i}`)[0].attributes['data-color'].nodeValue;
-        var value = document.getElementsByClassName(`item${i}`)[0].attributes['data-value'].nodeValue;
+      for (var i = 1; i <= (28 * 24) / this.timeSegment; i++) {
+        var color = document.getElementsByClassName(`item${i}`)[0].attributes[
+          "data-color"
+        ].nodeValue;
+        var value = document.getElementsByClassName(`item${i}`)[0].attributes[
+          "data-value"
+        ].nodeValue;
         var obj = {
           color: color,
-          value: value
+          value: value,
         };
-        arr.push(JSON.stringify(obj))
+        arr.push(JSON.stringify(obj));
       }
       // if (this.currentObjectId != '' && this.currentDate==this.oldDate) {
       //   const delQuery = Bmob.Query('item');
@@ -564,44 +724,44 @@ export default {
       //     console.log(err)
       //   })
       // }
-      const query = Bmob.Query('item');
-      query.set("item_list", arr.toString())
-      query.set("activities", this.itemsArr)
-      query.set("save_date", this.currentDateRange)
-      query.set("time_segment", this.timeSegment.toString())
-      query.set("username", sessionStorage.getItem('username'))
-      query.save().then(res => {
-        console.log(res)
-        this.$q.notify(`保存成功`);
-      }).catch(err => {
-        console.log(err)
-      })
-
-
-
+      const query = Bmob.Query("item");
+      query.set("item_list", arr.toString());
+      query.set("activities", this.itemsArr);
+      query.set("save_date", this.currentDateRange);
+      query.set("time_segment", this.timeSegment.toString());
+      query.set("username", sessionStorage.getItem("username"));
+      query
+        .save()
+        .then((res) => {
+          console.log(res);
+          this.$q.notify(`保存成功`);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     isUrgency(position, e) {
       this.urgency = !this.urgency;
       if (this.urgency) {
         document.getElementById(position).style.background = "#ffff00";
-        document.getElementById(position).setAttribute('data-value', 'Y');
-        document.getElementById(position).setAttribute('data-color', '#ffff00');
+        document.getElementById(position).setAttribute("data-value", "Y");
+        document.getElementById(position).setAttribute("data-color", "#ffff00");
       } else {
         document.getElementById(position).style.background = "white";
-        document.getElementById(position).setAttribute('data-value', 'N');
-        document.getElementById(position).setAttribute('data-color', 'white');
+        document.getElementById(position).setAttribute("data-value", "N");
+        document.getElementById(position).setAttribute("data-color", "white");
       }
     },
     isFinished(position, e) {
       this.urgency = !this.urgency;
       if (this.urgency) {
         document.getElementById(position).style.background = "#00f57b";
-        document.getElementById(position).setAttribute('data-value', 'Y');
-        document.getElementById(position).setAttribute('data-color', '#00f57b');
+        document.getElementById(position).setAttribute("data-value", "Y");
+        document.getElementById(position).setAttribute("data-color", "#00f57b");
       } else {
         document.getElementById(position).style.background = "white";
-        document.getElementById(position).setAttribute('data-value', 'N');
-        document.getElementById(position).setAttribute('data-color', 'white');
+        document.getElementById(position).setAttribute("data-value", "N");
+        document.getElementById(position).setAttribute("data-color", "white");
       }
     },
     addItem() {
@@ -639,11 +799,11 @@ export default {
           persistent: true,
         })
         .onOk((data) => {
-          var color = data.split('-')[0];
-          var value = data.split('-')[1];
-          document.getElementById(position).style.background = color
-          document.getElementById(position).setAttribute('data-value', value);
-          document.getElementById(position).setAttribute('data-color', color);
+          var color = data.split("-")[0];
+          var value = data.split("-")[1];
+          document.getElementById(position).style.background = color;
+          document.getElementById(position).setAttribute("data-value", value);
+          document.getElementById(position).setAttribute("data-color", color);
           // console.log('>>>> OK, received', data)
         })
         .onCancel(() => {
@@ -717,8 +877,9 @@ export default {
         seconds--;
         if (seconds > 0) {
           dialog.update({
-            message: `Autoclosing in ${seconds} second${seconds > 1 ? "s" : ""
-              }.`,
+            message: `Autoclosing in ${seconds} second${
+              seconds > 1 ? "s" : ""
+            }.`,
           });
         } else {
           clearInterval(timer);
