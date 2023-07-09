@@ -6,7 +6,8 @@
   "author": "lsy",
   "private": true,
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider & quasar build"
   },
   "dependencies": {
     "@quasar/cli": "^1.2.1",
